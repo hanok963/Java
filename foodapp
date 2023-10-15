@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Restaurant {
+    private String name;
+    private List<MenuItem> menu;
+
+    public Restaurant(String name) {
+        this.name = name;
+        this.menu = new ArrayList<>();
+    }
+
+    public void addToMenu(MenuItem item) {
+        menu.add(item);
+    }
+
+    public List<MenuItem> getMenu() {
+        return menu;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+class MenuItem {
+    private String name;
+    private double price;
+
+    public MenuItem(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+}
+
+class Order {
+    private List<MenuItem> items = new ArrayList<>();
+
+    public void addItem(MenuItem item) {
+        items.add(item);
+    }
+
+    public List<MenuItem> getItems() {
+        return items;
+    }
+
+    public double calculateTotal() {
+        double total = 0;
+        for (MenuItem item : items) {
+            total += item.getPrice();
+        }
+        return total;
+    }
+}
+
+public class FoodDeliveryApp {
+    public static void main(String[] args) {
+        // Create restaurants
+        Restaurant restaurant1 = new Restaurant("Restaurant A");
+        Restaurant restaurant2 = new Restaurant("Restaurant B");
+
+        // Create menu items
+        MenuItem item1 = new MenuItem("Burger", 5.99);
+        MenuItem item2 = new MenuItem("Pizza", 7.99);
+        MenuItem item3 = new MenuItem("Salad", 4.49);
+
+        // Add menu items to restaurants
+        restaurant1.addToMenu(item1);
+        restaurant1.addToMenu(item2);
+        restaurant2.addToMenu(item3);
+
+        // Create an order
+        Order order = new Order();
+        order.addItem(item1);
+        order.addItem(item3);
+
+        // Display the order and total cost
+        System.out.println("Order from " + restaurant1.getName() + ":");
+        for (MenuItem item : order.getItems()) {
+            System.out.println(item.getName() + " - $" + item.getPrice());
+        }
+        System.out.println("Total: $" + order.calculateTotal());
+    }
+}
